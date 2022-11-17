@@ -1,0 +1,5 @@
+{
+	"port": 5000,
+	"jwtSecret": "cats never ride bicycles",
+	"mongoUri": "mongodb+srv://vyacheslav:vyacheslav1234@cluster0.zljns9i.mongodb.net/?retryWrites=true&w=majority"
+}
