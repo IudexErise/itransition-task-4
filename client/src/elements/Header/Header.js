@@ -1,9 +1,12 @@
-import {React, useContext, useState} from 'react';
+import { React, useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useHttp } from '../../hooks/http.hook';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const { loading, error, request } = useHttp();
   const [form, setForm] = useState({
     email: '', password: ''
@@ -20,6 +23,12 @@ function Header() {
     } catch (e) { }
   }
 
+  const logoutHandler = event => {
+    event.preventDefault();
+    auth.logout();
+    navigate('/');
+  }
+
   return (
     <header className="p-3 text-bg-dark">
       <div className="container">
@@ -30,38 +39,54 @@ function Header() {
 
           </ul>
 
-          <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="form">
-            <input
-              type="email"
-              id="email"
-              className="form-control form-control-dark text-bg-dark"
-              placeholder="Email..."
-              aria-label="Email"
-              onChange={changeHandler}
-            />
-          </form>
+          {!auth.isAuthenticated &&
+            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="form">
+              <input
+                type="email"
+                id="email"
+                className="form-control form-control-dark text-bg-dark"
+                placeholder="Email..."
+                aria-label="Email"
+                onChange={changeHandler}
+              />
+            </form>
+          }
+          
+          {!auth.isAuthenticated &&
+            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="form">
+              <input
+                type="password"
+                id="password"
+                className="form-control form-control-dark text-bg-dark"
+                placeholder="Password..."
+                aria-label="Password"
+                onChange={changeHandler}
+              />
+            </form>
+          }
 
-          <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="form">
-            <input
-              type="password"
-              id="password"
-              className="form-control form-control-dark text-bg-dark"
-              placeholder="Password..."
-              aria-label="Password"
-              onChange={changeHandler}
-            />
-          </form>
-
-          <div className="text-end">
-            <button
-              type="button"
-              className="btn btn-outline-light me-2"
-              onClick={loginHandler}
-              disabled={loading}
-            >
-              Log in
-            </button>
-          </div>
+          {!auth.isAuthenticated ?
+            <div className="text-end">
+              <button
+                type="button"
+                className="btn btn-outline-light me-2"
+                onClick={loginHandler}
+                disabled={loading}
+              >
+                Log in
+              </button>
+            </div>
+            :
+            <div className="text-end">
+              <button
+                type="button"
+                className="btn btn-outline-light me-2"
+                onClick={logoutHandler}
+                disabled={loading}
+              >
+                Log out
+              </button>
+            </div>}
         </div>
       </div>
     </header>
