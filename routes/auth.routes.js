@@ -27,7 +27,7 @@ router.post(
         })
       }
 
-      const { name, email, password, registrationDate } = req.body;
+      const {name, email, password} = req.body;
 
       const candidate = await User.findOne({ email })
 
@@ -37,7 +37,8 @@ router.post(
 
       const hashedPassword = await bcrypt.hash(password, 12);
       const date = new Date().toLocaleString();
-      const user = new User({ name, email, password: hashedPassword, registrationDate: date })
+      const newId = Math.random().toString().slice(5);
+      const user = new User({ uniqId: newId, name, email, password: hashedPassword, registrationDate: date, lastLoginDate: date, userStatus: 'none' })
 
       await user.save();
 
