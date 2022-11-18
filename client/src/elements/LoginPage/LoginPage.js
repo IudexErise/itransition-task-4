@@ -15,9 +15,7 @@ function LoginPage() {
     try {
       const data = await request('/api/auth/register', 'POST', { ...form });
       console.log('Data', data);
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
   return (

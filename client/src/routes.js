@@ -8,7 +8,7 @@ export const useRoutes = isAuthenticated => {
     return (
       <Routes>
         <Route exact path="/users"  element={<Users />} />
-        <Route path="/" element={<Navigate replace to="/" />} />
+        <Route path="/" element={<Navigate replace to="/users" />} />
       </Routes>
     )
   }
