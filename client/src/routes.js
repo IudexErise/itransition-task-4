@@ -1,13 +1,13 @@
 import React from "react";
 import {Routes, Route, Navigate} from 'react-router-dom';
 import LoginPage from './elements/LoginPage/LoginPage';
-import Users from "./elements/Users/Users";
+import UsersPage from "./elements/UsersPage/UsersPage";
 
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
     return (
       <Routes>
-        <Route exact path="/users"  element={<Users />} />
+        <Route exact path="/users"  element={<UsersPage />} />
         <Route path="/" element={<Navigate replace to="/users" />} />
       </Routes>
     )
