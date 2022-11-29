@@ -94,4 +94,18 @@ router.post(
     }
   });
 
+  // /api/auth/getusers
+router.get(
+  '/getusers',
+  async (req, res) => {
+    try {
+      let users = User.find({}, function(err, users){
+        res.json(users);        
+    })
+
+    } catch (e) {
+      res.status(500).json({ message: 'Something went wrong, try again' });
+    }
+  });
+
 module.exports = router;
