@@ -4,16 +4,20 @@ import { useHttp } from './../../hooks/http.hook';
 function UsersPage() {
   const [users, setUsers] = useState([]);
   const [showUsers, setShowUsers] = useState(false);
+  const [allChecked, setAllChecked] = useState(false);
 
-  const { loading, error, request } = useHttp();
+  const { request } = useHttp();
 
-  const mapUsers = async () => {
+  useEffect( () => {
+    const fetchData = async () => {
     try {
       let data = await request('/api/auth/getusers', 'GET');
       setUsers(data);  
       setShowUsers(!showUsers);
     } catch (e) { }
   }
+  fetchData();
+  }, [])
 
 
   return (
@@ -29,15 +33,12 @@ function UsersPage() {
         <div className="btn-group me-2" role="group">
           <button type="button" className="btn btn-dark">Delete</button>
         </div>
-        <div className="btn-group me-2" role="group">
-          <button type="button" className="btn btn-info" onClick={mapUsers}>Get users</button>
-        </div>
       </div>
       <br />
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th scope="col"><input type='checkbox' /></th>
+            <th scope="col"><input type='checkbox' onClick={() => setAllChecked(!allChecked)}/></th>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
@@ -49,7 +50,7 @@ function UsersPage() {
         <tbody>
           {showUsers && users.map((user) => (
             <tr key={user.uniqId}>
-              <td><input type='checkbox' /></td>
+              <td><input type='checkbox' checked={allChecked}/></td>
               <td>{user.uniqId}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>

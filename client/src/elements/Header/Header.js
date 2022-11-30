@@ -1,4 +1,4 @@
-import { React, useContext, useState } from 'react';
+import { React, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useHttp } from '../../hooks/http.hook';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ function Header() {
   const [form, setForm] = useState({
     email: '', password: ''
   });
+  const [isFilled, setIsFilled] = useState(true);
 
   const changeHandler = event => {
     setForm({ ...form, [event.target.id]: event.target.value })
@@ -28,6 +29,12 @@ function Header() {
     auth.logout();
     navigate('/');
   }
+
+  useEffect(() => {
+    if (error) {
+      alert(error)
+    }
+  }, [error])
 
   return (
     <header className="p-3 text-bg-dark">

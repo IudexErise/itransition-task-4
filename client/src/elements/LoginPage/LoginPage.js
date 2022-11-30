@@ -8,15 +8,20 @@ function LoginPage() {
   });
 
   const changeHandler = event => {
-    setForm({ ...form, [event.target.id]: event.target.value })
+    setForm({ ...form, [event.target.id]: event.target.value });
   }
 
   const registerHandler = async () => {
     try {
       const data = await request('/api/auth/register', 'POST', { ...form });
-      console.log('Data', data);
-    } catch (e) {}
+    } catch (e) { }
   }
+
+  useEffect(() => {
+    if (error) {
+      alert(error)
+    }
+  }, [error])
 
   return (
     <main>
