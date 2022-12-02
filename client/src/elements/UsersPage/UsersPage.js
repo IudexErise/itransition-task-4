@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHttp } from './../../hooks/http.hook';
+import User from './User/User';
 
 function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -38,7 +39,7 @@ function UsersPage() {
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th scope="col"><input type='checkbox' onClick={() => setAllChecked(!allChecked)}/></th>
+            <th scope="col"><input type='checkbox' onChange={() => setAllChecked(!allChecked)}/></th>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
@@ -49,15 +50,16 @@ function UsersPage() {
         </thead>
         <tbody>
           {showUsers && users.map((user) => (
-            <tr key={user.uniqId}>
-              <td><input type='checkbox' checked={allChecked}/></td>
-              <td>{user.uniqId}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.registrationDate}</td>
-              <td>{user.lastLoginDate}</td>
-              <td>{user.userStatus}</td>
-            </tr>
+            <User
+            key={user.uniqId}
+            allChecked={allChecked} 
+            uniqId={user.uniqId} 
+            name={user.name} 
+            email={user.email} 
+            registrationDate={user.registrationDate} 
+            lastLoginDate={user.lastLoginDate}
+            userStatus={user.userStatus}
+            />
           ))}
         </tbody>
       </table>
