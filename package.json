@@ -9,7 +9,7 @@
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "author": "Vycheslav S. vyacheslav.saprykin@gmail.com",
+  "author": "vyacheslav.saprykin@gmail.com",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
